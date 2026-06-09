@@ -7,18 +7,25 @@ export interface Repository {
   description: string;
 }
 
+export interface DailyMetric {
+  date: string;
+  commits: number;
+  issues: number;
+  openPRs: number;
+}
+
+export interface RepositoryHistory {
+  history: DailyMetric[];
+}
+
 export interface RepositoryMetrics {
-  [key: string]: {
-    commits: number;
-    issues: number;
-    openPRs: number;
-  };
+  [key: string]: RepositoryHistory;
 }
 
 export interface MetricsData {
   timestamp: string;
-  metrics: Record<string, MetricEntry>;
-  repositories: Repository[];
+  metrics: RepositoryMetrics;
+  repositories?: Repository[];
 }
 
 export interface MetricEntry {

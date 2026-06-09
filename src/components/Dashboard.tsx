@@ -1,26 +1,13 @@
 import { useMemo } from 'react';
 import { ColumnChart } from './ColumnChart';
 import { ChartCard } from './ChartCard';
-import { MetricsData, MetricEntry } from '../types';
+import { MetricsData, RepositoryHistory } from '../types';
 
 interface DashboardProps {
   data: MetricsData;
 }
 
 export const Dashboard = ({ data }: DashboardProps) => {
-  const chartData = useMemo(() => {
-    const labels = Object.keys(data.metrics).map(key => {
-      const parts = key.split('/');
-      return parts.length > 1 ? parts[1] : key;
-    });
-
-    const commits = Object.values(data.metrics).map((m: MetricEntry) => m.commits);
-    const issues = Object.values(data.metrics).map((m: MetricEntry) => m.issues);
-    const openPRs = Object.values(data.metrics).map((m: MetricEntry) => m.openPRs);
-
-    return { labels, commits, issues, openPRs };
-  }, [data]);
-
   const lastUpdated = new Date(data.timestamp).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
@@ -29,6 +16,11 @@ export const Dashboard = ({ data }: DashboardProps) => {
     minute: '2-digit',
     timeZone: 'UTC',
   });
+
+  // Sort repositories for consistent display
+  const sortedRepos = useMemo(() => {
+    return Object.keys(data.metrics).sort();
+  }, [data.metrics]);
 
   return (
     <section id="dashboard" className="py-12 md:py-20 lg:py-24 bg-gray-50 dark:bg-gray-900 dark-mode-transition">
@@ -40,53 +32,62 @@ export const Dashboard = ({ data }: DashboardProps) => {
           <p className="text-gray-600 dark:text-gray-400 text-lg">
             Last updated: {lastUpdated} UTC
           </p>
+          <p className="text-gray-500 dark:text-gray-500 text-sm mt-2">
+            Historical data for the last 30 days
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-8">
-          <ChartCard 
-            title="Total Commits by Repository"
-            description="Cumulative commit count across all tracked projects"
-          >
-            <ColumnChart 
-              title="Commits"
-              data={chartData}
-              metric="commits"
-            />
-          </ChartCard>
+        {/* Charts by Repository */}
+        <div className="space-y-12">
+          {sortedRepos.map((repoName) => {
+            const repoData = data.metrics[repoName] as RepositoryHistory;
+            
+            return (
+              <div key={repoName} className="border-t border-gray-200 dark:border-gray-700 pt-12">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">
+                  {repoName}
+                </h3>
+                
+                <div className="space-y-8">
+                  <ChartCard 
+                    title="Commits"
+                    description="Total commits over the last 30 days"
+                  >
+                    <ColumnChart 
+                      data={repoData.history}
+                      metric="commits"
+                    />
+                  </ChartCard>
 
-          <ChartCard 
-            title="Total Issues by Repository"
-            description="Number of closed and open issues in each project"
-          >
-            <ColumnChart 
-              title="Issues"
-              data={chartData}
-              metric="issues"
-            />
-          </ChartCard>
+                  <ChartCard 
+                    title="Issues"
+                    description="Total issues over the last 30 days"
+                  >
+                    <ColumnChart 
+                      data={repoData.history}
+                      metric="issues"
+                    />
+                  </ChartCard>
 
-          <ChartCard 
-            title="Open Pull Requests by Repository"
-            description="Currently open pull requests in each project"
-          >
-            <ColumnChart 
-              title="Open PRs"
-              data={chartData}
-              metric="openPRs"
-            />
-          </ChartCard>
+                  <ChartCard 
+                    title="Open Pull Requests"
+                    description="Open PRs over the last 30 days"
+                  >
+                    <ColumnChart 
+                      data={repoData.history}
+                      metric="openPRs"
+                    />
+                  </ChartCard>
+                </div>
+              </div>
+            );
+          })}
         </div>
 
-        <div className="mt-12 p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 dark-mode-transition">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            📊 Data Updates
-          </h3>
-          <ul className="text-gray-600 dark:text-gray-300 space-y-2 text-sm">
-            <li>✓ Data fetched daily at 00:00 UTC</li>
-            <li>✓ Data pulled from GitHub public API</li>
-            <li>✓ Metrics include commits, issues, and open pull requests</li>
-            <li>✓ Supporting 10 major open-source projects</li>
-          </ul>
+        <div className="mt-16 p-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 dark-mode-transition">
+          <p className="text-sm text-gray-600 dark:text-gray-400">
+            <span className="font-semibold">Note:</span> Days without data are filled with zeros. As the system collects data daily, these values will be populated over time.
+          </p>
         </div>
       </div>
     </section>
