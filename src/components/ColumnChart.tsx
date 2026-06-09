@@ -11,7 +11,7 @@ interface ColumnChartProps {
   metric: 'commits' | 'issues' | 'openPRs';
 }
 
-export const ColumnChart: FC<ColumnChartProps> = ({ title, data, metric }) => {
+export const ColumnChart: FC<ColumnChartProps> = ({ title }) => {
   // Implement your chart rendering logic here
   return <div>{title}</div>;
 };

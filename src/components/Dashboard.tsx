@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { ColumnChart } from './ColumnChart';
 import { ChartCard } from './ChartCard';
-import { MetricsData } from '../../types';
+import { MetricsData, MetricEntry } from '../types';
 
 interface DashboardProps {
   data: MetricsData;
@@ -14,9 +14,9 @@ export const Dashboard = ({ data }: DashboardProps) => {
       return parts.length > 1 ? parts[1] : key;
     });
 
-    const commits = Object.values(data.metrics).map(m => m.commits);
-    const issues = Object.values(data.metrics).map(m => m.issues);
-    const openPRs = Object.values(data.metrics).map(m => m.openPRs);
+    const commits = Object.values(data.metrics).map((m: MetricEntry) => m.commits);
+    const issues = Object.values(data.metrics).map((m: MetricEntry) => m.issues);
+    const openPRs = Object.values(data.metrics).map((m: MetricEntry) => m.openPRs);
 
     return { labels, commits, issues, openPRs };
   }, [data]);
