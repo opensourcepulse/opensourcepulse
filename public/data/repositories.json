@@ -1,0 +1,82 @@
+[
+  {
+    "id": "golang-go",
+    "owner": "golang",
+    "name": "go",
+    "fullName": "golang/go",
+    "url": "https://github.com/golang/go",
+    "description": "The Go programming language"
+  },
+  {
+    "id": "rust-lang-rust",
+    "owner": "rust-lang",
+    "name": "rust",
+    "fullName": "rust-lang/rust",
+    "url": "https://github.com/rust-lang/rust",
+    "description": "Empowering everyone to build reliable and efficient software"
+  },
+  {
+    "id": "microsoft-typescript",
+    "owner": "Microsoft",
+    "name": "TypeScript",
+    "fullName": "Microsoft/TypeScript",
+    "url": "https://github.com/Microsoft/TypeScript",
+    "description": "TypeScript is a language for application-scale JavaScript"
+  },
+  {
+    "id": "facebook-react",
+    "owner": "facebook",
+    "name": "react",
+    "fullName": "facebook/react",
+    "url": "https://github.com/facebook/react",
+    "description": "A JavaScript library for building user interfaces"
+  },
+  {
+    "id": "expressjs-express",
+    "owner": "expressjs",
+    "name": "express",
+    "fullName": "expressjs/express",
+    "url": "https://github.com/expressjs/express",
+    "description": "Fast, unopinionated, minimalist web framework for Node.js"
+  },
+  {
+    "id": "rails-rails",
+    "owner": "rails",
+    "name": "rails",
+    "fullName": "rails/rails",
+    "url": "https://github.com/rails/rails",
+    "description": "Ruby on Rails is a web application framework written in Ruby"
+  },
+  {
+    "id": "kubernetes-kubernetes",
+    "owner": "kubernetes",
+    "name": "kubernetes",
+    "fullName": "kubernetes/kubernetes",
+    "url": "https://github.com/kubernetes/kubernetes",
+    "description": "Production-Grade Container Orchestration"
+  },
+  {
+    "id": "microsoft-vscode",
+    "owner": "microsoft",
+    "name": "vscode",
+    "fullName": "microsoft/vscode",
+    "url": "https://github.com/microsoft/vscode",
+    "description": "Visual Studio Code - lightweight but powerful source code editor"
+  },
+  {
+    "id": "pytorch-pytorch",
+    "owner": "pytorch",
+    "name": "pytorch",
+    "fullName": "pytorch/pytorch",
+    "url": "https://github.com/pytorch/pytorch",
+    "description": "Open-source machine learning framework with Python-first API"
+  },
+  {
+    "id": "tensorflow-tensorflow",
+    "owner": "tensorflow",
+    "name": "tensorflow",
+    "fullName": "tensorflow/tensorflow",
+    "url": "https://github.com/tensorflow/tensorflow",
+    "description": "An open-source platform for machine learning"
+  }
+]

@@ -9,7 +9,7 @@ export const useMetrics = () => {
   useEffect(() => {
     const loadMetrics = async () => {
       try {
-        const response = await fetch(new URL('../data/metrics.json', import.meta.url).href);
+        const response = await fetch('/opensourcepulse/data/metrics.json');
         if (!response.ok) throw new Error('Failed to load metrics');
         const metricsData = await response.json();
         setData(metricsData);
