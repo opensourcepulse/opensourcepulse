@@ -17,6 +17,12 @@ export interface RepositoryMetrics {
 
 export interface MetricsData {
   timestamp: string;
-  metrics: RepositoryMetrics;
+  metrics: Record<string, MetricEntry>;
   repositories: Repository[];
+}
+
+export interface MetricEntry {
+  commits: number;
+  issues: number;
+  openPRs: number;
 }
